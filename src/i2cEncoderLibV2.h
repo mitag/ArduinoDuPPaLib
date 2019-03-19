@@ -83,7 +83,7 @@ enum GCONF_PARAMETER {
   EEPROM_BANK1 =  0x40,
   EEPROM_BANK2 =  0x00,
   
-  RESET =  0x80,
+  ENCODER_RESET =  0x80,
 };
 
 /* Encoder status bits and setting. Use with: INTCONF for set and with ESTATUS for read the bits  */
@@ -170,7 +170,7 @@ class i2cEncoderLibV2
     /** Configuration function **/
     i2cEncoderLibV2(uint8_t add);
 	void begin( uint8_t conf);
-    void reset(void);
+    void ENCODER_RESET(void);
     
     /** Configuration of callback **/
     void autoconfigInterrupt(void);
