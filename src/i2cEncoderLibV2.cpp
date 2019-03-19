@@ -28,7 +28,7 @@ void i2cEncoderLibV2::begin(uint8_t conf) {
 	_gconf = conf;
 }
 
-void i2cEncoderLibV2::reset(void) {
+void i2cEncoderLibV2::ENCODER_RESET(void) {
 	writeEncoder(REG_GCONF, (uint8_t) 0x80);
 	delay(10);
 }
