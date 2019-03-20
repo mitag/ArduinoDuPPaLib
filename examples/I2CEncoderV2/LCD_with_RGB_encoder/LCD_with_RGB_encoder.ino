@@ -55,7 +55,7 @@ void setup(void)
 {
   Wire.begin();
   Wire.setClock(400000);
-  RGBEncoder.reset();
+  RGBEncoder.ENCODER_RESET();
 
   delay(1000);
   pinMode(IntPin, INPUT);
