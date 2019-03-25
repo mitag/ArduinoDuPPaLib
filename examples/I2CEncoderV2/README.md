@@ -147,10 +147,13 @@ The possible parameters are the following:
 ###### Examples:
 
 ```C++
-encoder.begin(INT_DATA | WRAP_DISABLE | DIRE_LEFT | IPUP_ENABLE | RMOD_X1 | STD_ENCODER);
+encoder.begin(i2cEncoderLibV2::INT_DATA | i2cEncoderLibV2::WRAP_DISABLE | i2cEncoderLibV2::DIRE_LEFT | i2cEncoderLibV2::IPUP_ENABLE | i2cEncoderLibV2::RMOD_X1 | i2cEncoderLibV2::STD_ENCODER);
 ```
 
+Please remember to add the class name **i2cEncoderLibV2::** before the parameter!
+
 #### void reset(void)
+
 Reset of the board. 
 In this command there is 10ms delay in order to make the board correctly restart.
 
@@ -185,8 +188,10 @@ The interrupt configurations are used only when the pin is configured as digital
 ###### Examples:
 
 ```C++
-encoder.writeGP1conf(GP_AN | GP_PULL_DI | GP_INT_DI);  //Configure the GP1 as analog input with the pull-up and the interrupt disable 
+encoder.writeGP1conf(i2cEncoderLibV2::GP_AN | i2cEncoderLibV2::GP_PULL_DI | i2cEncoderLibV2::GP_INT_DI);  //Configure the GP1 as analog input with the pull-up and the interrupt disable 
 ```
+
+Please remember to add the class name **i2cEncoderLibV2::** before the parameter!
 
 ##### void writeInterruptConfig(uint8_t interrupt)
 
@@ -201,9 +206,18 @@ This method  is used for enabling or disabling the interrupt source selectively.
 | RDEC  | Encoder is rotated in the decrement direction  |
 | RMAX  | Maximum threshold is reached  |
 | RMIN  | Minimum threshold is reached  |
-| INT2  | An event on the interrupt 2 register occurs |
+| INT_2  | An event on the interrupt 2 register occurs |
+
+###### Examples:
+
+```C++
+ Encoder.writeInterruptConfig(i2cEncoderLibV2::INT_2 | i2cEncoderLibV2::RMIN | i2cEncoderLibV2::RMAX | i2cEncoderLibV2::RDEC | i2cEncoderLibV2::RINC | i2cEncoderLibV2::PUSHR); 
+```
+
+Please remember to add the class name **i2cEncoderLibV2::** before the parameter!
 
 #####  void autoconfigInterrupt(void)
+
 This method auto configures the **INTCONF** register according to the attached callback.
 **For the proper use, must be called after the definition of the last event property.**
 
@@ -249,7 +263,7 @@ encoder.writeDoublePushPeriod(50);  //Set a period for the double push of 500ms
 This method is used for setting the fade speed **FADERGB** of the RGB LED of the rotary encoder. It the value is 0, the fade option is disabled.
 ###### Examples:
 
-```C++
+​```C++
 encoder.writeFadeRGB(1);  //Fade enabled with 1ms step 
 ```
 
@@ -280,7 +294,7 @@ In case an event of the I2STATUS  register, the I2STATUS is automatically be rea
 
 
 
-##### bool readStatus(uint8_t s)
+##### bool readStatus(Int_Status s)
 
 Must be called after **updateStatus()**, this method is used for checking if some event occurs on the **ESTATUS** register.
 Return value is **true** in case of the event occured, otherwise is **false**
@@ -300,33 +314,34 @@ Possible parameters are:
 ###### Example:
 ```C++
  if ( Encoder.updateStatus() == true) {
-      if ( Encoder.readStatus(RINC)) {
+      if ( Encoder.readStatus(i2cEncoderLibV2::RINC)) {
         Serial.print("Increment ");
       }
-      if ( Encoder.readStatus(RDEC)) {
+      if ( Encoder.readStatus(i2cEncoderLibV2::RDEC)) {
         Serial.print("Decrement ");
       }
 
-      if ( Encoder.readStatus(RMAX)) {
+      if ( Encoder.readStatus(i2cEncoderLibV2::RMAX)) {
         Serial.print("Maximum threshold: ");
       }
 
-      if ( Encoder.readStatus(RMIN)) {
+      if ( Encoder.readStatus(i2cEncoderLibV2::RMIN)) {
         Serial.print("Minimum threshold: ");
       }
 
-      if ( Encoder.readStatus(PUSHR)) {
+      if ( Encoder.readStatus(i2cEncoderLibV2::PUSHR)) {
         Serial.println("Push button Released");
       }
 
-      if ( Encoder.readStatus(PUSHP)) {
+      if ( Encoder.readStatus(i2cEncoderLibV2::PUSHP)) {
       }
 
-      if ( Encoder.readStatus(PUSHD)) {
+      if ( Encoder.readStatus(i2cEncoderLibV2::PUSHD)) {
         Serial.println("Double push!");   
       }
 ```
 
+Please remember to add the class name **i2cEncoderLibV2::** before the parameter!
 
 ##### uint8_t readStatus(void)
 
@@ -334,7 +349,7 @@ Return the status of the register **ESTATUS**
 
 
 
-##### bool readInt2(uint8_t s)
+##### bool readInt2(Int2_Status s)
 Must be called after **updateStatus()**, this method is used for checking if some event occurred on the secondary interrupt status **I2STATUS** register.
 Return value is **true** in case of the event occured, otherwise is **false**
 Possible parameters are:
@@ -352,33 +367,35 @@ Possible parameters are:
 ###### Example:
 ```C++
  if ( Encoder.updateStatus() == true) {
-      if ( Encoder.readInt2(GP1_POS)) {
+      if ( Encoder.readInt2(i2cEncoderLibV2::GP1_POS)) {
         Serial.print("GP1 positive edge");
       }
-      if ( Encoder.readInt2(GP1_NEG)) {
+      if ( Encoder.readInt2(i2cEncoderLibV2::GP1_NEG)) {
         Serial.print("GP1 negative edge ");
       }
 
-      if ( Encoder.readInt2(GP2_POS)) {
+      if ( Encoder.readInt2(i2cEncoderLibV2::GP2_POS)) {
           Serial.print("GP2 positive edge");
       }
 
-      if ( Encoder.readInt2(GP2_NEG)) {
+      if ( Encoder.readInt2(i2cEncoderLibV2::GP2_NEG)) {
         Serial.print("GP2 negative edge ");
       }
 
-      if ( Encoder.readInt2(GP3_POS)) {
+      if ( Encoder.readInt2(i2cEncoderLibV2::GP3_POS)) {
         Serial.print("GP3 positive edge");
       }
 
-      if ( Encoder.readInt2(GP3_NEG)) {
+      if ( Encoder.readInt2(i2cEncoderLibV2::GP3_NEG)) {
         Serial.print("GP3 negative edge ");
       }
 
-      if ( Encoder.readInt2(FADE_INT)) {
+      if ( Encoder.readInt2(i2cEncoderLibV2::FADE_INT)) {
         Serial.println("Fade process finished");   
       }
 ```
+
+Please remember to add the class name **i2cEncoderLibV2::** before the parameter!
 
 ##### uint8_t readInt2(void)
 
@@ -386,7 +403,7 @@ Return the status of the register **I2STATUS**
 
 
 
-##### bool readFadeStatus(uint8_t s)
+##### bool readFadeStatus(Fade_Status s)
 
 When this function is called, it performs a I2C reading.
 This function return **true** when the fade running, otherwise return **false**
@@ -400,7 +417,7 @@ This function return **true** when the fade running, otherwise return **false**
 | FADE_GP2  | Fade process status of the GP2 |
 | FADE_GP3  | Fade process status of the GP3 |
 
-
+Please remember to add the class name **i2cEncoderLibV2::** before the parameter!
 
 ##### uint8_t readFadeStatus(void)
 
